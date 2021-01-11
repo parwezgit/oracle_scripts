@@ -1,0 +1,17 @@
+oracle@ora02uat:/home/oracle>
+oracle@ora02uat:/home/oracle>
+oracle@ora02uat:/home/oracle>cd /oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace/
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>view alert_CAOUAT2.log
+
+ ex: 0602-101 Out of memory saving lines for undo.
+
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>export EXINIT="set ll=80000000"
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>
+oracle@ora02uat:/oracle/app/rdbms/diag/rdbms/caouat/CAOUAT2/trace>view alert_CAOUAT2.log
+"alert_CAOUAT2.log" [Read only] 2006161 lines, 117728225 characters
+2019-03-07T12:13:13.280081+03:00
+Adjusting the default value of parameter parallel_max_servers
+from 1920 to 780 due to the value of parameter processes (1000)
+Starting ORACLE instance (normal) (OS id: 54395506)
