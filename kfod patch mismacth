@@ -1,0 +1,122 @@
+Error
+
+
+2021-03-06 11:18:45 +0300        :ERROR  : Some griddisk(s) are still online.
+2021-03-06 11:18:45 +0300        :ERROR  : Patching/Rollback in rolling mode in this situation will fail if griddisks are not offlined.
+2021-03-06 11:18:45 +0300        :ERROR  : The command:  LIST GRIDDISK ATTRIBUTES name WHERE asmdeactivationoutcome != 'Yes' can be used to determine the griddisk that need to be offlined.
+2021-03-06 11:18:45 +0300        :ERROR  : Cell(s) have griddisk(s) that are online.
+2021-03-06 11:18:46 +0300        :FAILED : Check ASM deactivation outcome.
+
+
+[root@oraluxcelad-pr01 ~]# cellcli
+CellCLI: Release 12.2.1.1.7 - Production on Sat Mar 06 11:22:31 AST 2021
+
+Copyright (c) 2007, 2016, Oracle and/or its affiliates. All rights reserved.
+
+CellCLI>
+
+CellCLI> list GRIDDISK ATTRIBUTES name WHERE asmdeactivationoutcome != 'Yes' ;
+         DATAC1_CD_00_oraluxcelad_pr01
+         DATAC1_CD_01_oraluxcelad_pr01
+         DATAC1_CD_02_oraluxcelad_pr01
+         DATAC1_CD_03_oraluxcelad_pr01
+         DATAC1_CD_04_oraluxcelad_pr01
+         DATAC1_CD_05_oraluxcelad_pr01
+         DATAC1_CD_06_oraluxcelad_pr01
+         DATAC1_CD_07_oraluxcelad_pr01
+         DATAC1_CD_08_oraluxcelad_pr01
+         DATAC1_CD_09_oraluxcelad_pr01
+         DATAC1_CD_10_oraluxcelad_pr01
+
+		 
+		 In working node , the output was 
+CellCLI> list GRIDDISK ATTRIBUTES name WHERE asmdeactivationoutcome != 'Yes' ;
+        ( blank no entries )
+
+[root@oraluxcelad-pr01 ~]#
+[root@oraluxcelad-pr01 ~]#
+[root@oraluxcelad-pr01 ~]# cellcli -e list griddisk attributes name,asmmodestatus,asmdeactivationoutcome
+         DATAC1_CD_00_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_01_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_02_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_03_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_04_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_05_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_06_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_07_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_08_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_09_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_10_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DATAC1_CD_11_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_02_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_03_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_04_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_05_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_06_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_07_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_08_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_09_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_10_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         DBFS_DG_CD_11_oraluxcelad_pr01  ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_00_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_01_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_02_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_03_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_04_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_05_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_06_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_07_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+         RECOC1_CD_08_oraluxcelad_pr01   ONLINE  "Cannot deactivate because ASM is in rolling upgrade mode"
+		 
+
+Some patch were missing on one of the ndoe 
+
+
+[grid@oralux301 ~]$ dcli -g dbs_group -l grid '/u01/app/12.1.0.2/grid/bin/crsctl query crs releasepatch' ;
+oralux301: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+oralux302: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+oralux303: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+(Issue Node) ORALUX304: ORACLE CLUSTERWARE RELEASE PATCH LEVEL IS [784135648] AND THE COMPLETE LIST OF PATCHES [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 31704029 31704034 ] HAVE BEEN APPLIED ON THE LOCAL NODE.
+oralux305: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+oralux306: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+oralux307: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+oralux308: Oracle Clusterware release patch level is [1379507924] and the complete list of patches [20243804 20415006 20594149 20788771 20950328 21125181 21359749 21436941 21527488 21694919 21949015 22806133 23144544 24340679 24732088 25397136 25869760 25869830 26609798 26609945 26717470 26925263 26983807 27338029 27547374 28259867 28731800 29141038 29496791 29972716 30364137 30691015 31001106 31511219 31704029 31704034 ] have been applied on the local node.
+
+
+issue node
+
+[root@oralux304 ~]# /u01/app/12.1.0.2/grid/bin/kfod op=patchlvl
+-------------------
+Current Patch level
+===================
+784135648
+[root@oralux304 ~]# /u01/app/12.1.0.2/grid/bin/kfod op=patches
+---------------
+List of Patches
+===============
+20243804
+
+
+
+working node
+
+[root@oralux301 ~]# /u01/app/12.1.0.2/grid/bin/kfod op=patchlvl
+-------------------
+Current Patch level
+===================
+1379507924
+[root@oralux301 ~]# /u01/app/12.1.0.2/grid/bin/kfod op=patches
+---------------
+List of Patches
+===============
+20243804
+
+Issue reolsved after rollbacking and rea applying the patch
+
+
+
+
+
+ 
+		 
+		 
